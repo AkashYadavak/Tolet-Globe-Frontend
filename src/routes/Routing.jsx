@@ -9,6 +9,7 @@ import { lazy } from "react";
 import MainLayout from "../layouts/MainLayout";
 import AuthLayout from "../layouts/AuthLayout";
 import PrivateRoute from "./PrivateRoute";
+import PreventAuthRoute from "./PreventAuthRoute";
 
 const Landing = lazy(() => import("../pages/Landing"));
 const Contact = lazy(() => import("../pages/Contact"));
@@ -62,17 +63,33 @@ const Routing = () => {
               </PrivateRoute>
             }
           >
-
             <Route index element={<LandlordDashboardWelcomePage />} />
-            <Route path="my-properties" element={<LandlordDashboardMyProperties />} />
-            <Route path="add-properties" element={<LandlordDashboardAddProperties />} />
-            <Route path="settings/profile" element={<LandlordDashboardProfileForm />} />
-            <Route path="settings/account-security" element={<LandlordDashboardAccountSecurity/>} />
-
+            <Route
+              path="my-properties"
+              element={<LandlordDashboardMyProperties />}
+            />
+            <Route
+              path="add-properties"
+              element={<LandlordDashboardAddProperties />}
+            />
+            <Route
+              path="settings/profile"
+              element={<LandlordDashboardProfileForm />}
+            />
+            <Route
+              path="settings/account-security"
+              element={<LandlordDashboardAccountSecurity />}
+            />
           </Route>
         </Route>
 
-        <Route element={<AuthLayout />}>
+        <Route
+          element={
+            <PreventAuthRoute>
+              <AuthLayout />
+            </PreventAuthRoute>
+          }
+        >
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
